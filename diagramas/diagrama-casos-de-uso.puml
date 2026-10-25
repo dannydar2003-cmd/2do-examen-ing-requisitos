@@ -1,0 +1,82 @@
+@startuml
+title Sistema web de gestión de citas médicas\nClínica Vida Salud — Casos de uso
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+actor Administrador as Admin
+actor Recepcionista as Recep
+actor Médico as Medico
+actor Paciente as Pac
+
+rectangle "Sistema web Clínica Vida Salud" {
+  package "Ciclo #1 — Implementado" {
+    usecase "CU-01\nIniciar / cerrar sesión" as CU01
+    usecase "CU-02\nRegistrarse como paciente" as CU02
+    usecase "CU-03\nGestionar usuarios y roles" as CU03
+    usecase "CU-04\nGestionar pacientes" as CU04
+    usecase "CU-05\nGestionar médicos" as CU05
+    usecase "CU-06\nGestionar especialidades" as CU06
+    usecase "CU-07\nGestionar horarios\nde atención" as CU07
+    usecase "CU-08\nGestionar mi perfil" as CU08
+    usecase "CU-19\nRenovar contraseña temporal" as CU19
+  }
+
+  package "Ciclo #2 — Pendiente" {
+    usecase "CU-09\nRegistrar cita" as CU09
+    usecase "CU-10\nReprogramar cita" as CU10
+    usecase "CU-11\nCancelar cita" as CU11
+    usecase "CU-12\nControlar asistencia" as CU12
+    usecase "CU-13\nConsultar agenda médica" as CU13
+    usecase "CU-14\nConsultar historial de citas" as CU14
+    usecase "CU-15\nGenerar reportes" as CU15
+    usecase "CU-16\nRegistrar nota clínica" as CU16
+    usecase "CU-17\nConsultar notas clínicas" as CU17
+    usecase "CU-18\nVer recordatorio de citas" as CU18
+  }
+}
+
+' Acceso compartido
+Admin -- CU01
+Recep -- CU01
+Medico -- CU01
+Pac -- CU01
+
+' Ciclo #1
+Pac -- CU02
+Admin -- CU03
+Recep -- CU04
+Admin -- CU05
+Admin -- CU06
+Admin -- CU07
+Pac -- CU08
+Admin -- CU19
+Recep -- CU19
+
+' Ciclo #2
+Admin -- CU15
+Recep -- CU09
+Recep -- CU10
+Recep -- CU11
+Recep -- CU12
+Medico -- CU12
+Recep -- CU13
+Medico -- CU13
+Recep -- CU14
+Pac -- CU09
+Pac -- CU10
+Pac -- CU11
+Pac -- CU14
+Medico -- CU16
+Medico -- CU17
+Recep -- CU17
+Pac -- CU17
+Pac -- CU18
+
+note bottom
+  La agrupación por ciclo refleja el estado descrito en el informe:
+  Ciclo #1 implementado; Ciclo #2 pendiente.
+end note
+@enduml
