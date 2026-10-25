@@ -3,7 +3,7 @@
 @section('titulo', 'Editar médico · Clínica Vida Salud')
 
 @section('contenido')
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <h1 class="h3 fw-semibold mb-0">Editar médico <small class="text-secondary">{{ $medico->codigo }}</small></h1>
         <a href="{{ route('medicos.index') }}" class="btn btn-outline-secondary btn-sm">Cancelar</a>
     </div>

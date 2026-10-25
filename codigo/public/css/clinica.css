@@ -13,6 +13,12 @@
     --bs-link-hover-color-rgb: 9, 90, 90;
 }
 
+/* El texto oculto de las cabeceras (visually-hidden) es de posición absoluta: sin un contenedor posicionado
+   queda fuera de la tabla con scroll y ensancha toda la página en pantallas angostas. */
+.table-responsive {
+    position: relative;
+}
+
 /* Bootstrap fija a mano algunos azules en sus componentes; se reemplazan por el verde de la clínica. */
 .form-control:focus,
 .form-select:focus {

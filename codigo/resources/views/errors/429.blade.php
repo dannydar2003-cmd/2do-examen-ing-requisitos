@@ -3,11 +3,11 @@
 @section('titulo', 'Demasiadas solicitudes · Clínica Vida Salud')
 
 @section('contenido')
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
-            <h1 class="h3 fw-semibold">Demasiadas solicitudes</h1>
-            <p class="text-secondary">Espere un minuto e intente de nuevo.</p>
-            <a href="{{ url()->previous() }}" class="btn btn-clinica">Volver</a>
-        </div>
-    </div>
+    @include('errors._mensaje', [
+        'codigo' => 429,
+        'titulo' => 'Demasiadas solicitudes',
+        'texto' => 'Espere un minuto e intente de nuevo.',
+        'url' => url()->previous(),
+        'boton' => 'Volver',
+    ])
 @endsection

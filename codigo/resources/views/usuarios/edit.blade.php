@@ -9,7 +9,7 @@
 @endphp
 
 @section('contenido')
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <h1 class="h3 fw-semibold mb-0">
             Editar usuario <small class="text-secondary">{{ $persona->nombre_completo }}</small>
             @if ($esUsted) <span class="badge text-bg-light">Usted</span> @endif

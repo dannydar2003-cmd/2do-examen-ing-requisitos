@@ -39,40 +39,42 @@
                     @if ($horarios->isEmpty())
                         <div class="alert alert-warning mb-0">Este médico todavía no tiene horarios: no se le podrán agendar citas.</div>
                     @else
-                        <table class="table align-middle mb-0">
-                            <tbody>
-                                @foreach (HorarioAtencion::DIAS as $numero => $nombre)
-                                    <tr>
-                                        <th class="text-nowrap" style="width: 7rem;">{{ $nombre }}</th>
-                                        <td>
-                                            @forelse ($horarios[$numero] ?? [] as $horario)
-                                                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-1">
-                                                    <div>
-                                                        <strong>{{ $horario->desde() }} – {{ $horario->hasta() }}</strong>
-                                                        @if ($horario->consultorio)
-                                                            <span class="text-secondary small ms-2">{{ $horario->consultorio }}</span>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <tbody>
+                                    @foreach (HorarioAtencion::DIAS as $numero => $nombre)
+                                        <tr>
+                                            <th class="text-nowrap" style="width: 7rem;">{{ $nombre }}</th>
+                                            <td>
+                                                @forelse ($horarios[$numero] ?? [] as $horario)
+                                                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-1">
+                                                        <div>
+                                                            <strong>{{ $horario->desde() }} – {{ $horario->hasta() }}</strong>
+                                                            @if ($horario->consultorio)
+                                                                <span class="text-secondary small ms-2">{{ $horario->consultorio }}</span>
+                                                            @endif
+                                                        </div>
+                                                        @if ($medico->estado)
+                                                            <div class="text-nowrap">
+                                                                <a href="{{ route('horarios.edit', $horario) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                                                                <form method="POST" action="{{ route('horarios.destroy', $horario) }}" class="d-inline"
+                                                                      onsubmit="return confirm('Se eliminará el bloque {{ $horario->descripcion() }}.')">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                                                                </form>
+                                                            </div>
                                                         @endif
                                                     </div>
-                                                    @if ($medico->estado)
-                                                        <div class="text-nowrap">
-                                                            <a href="{{ route('horarios.edit', $horario) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
-                                                            <form method="POST" action="{{ route('horarios.destroy', $horario) }}" class="d-inline"
-                                                                  onsubmit="return confirm('Se eliminará el bloque {{ $horario->descripcion() }}.')">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
-                                                            </form>
-                                                        </div>
-                                                    @endif
-                                                </div>
-                                            @empty
-                                                <span class="text-secondary">—</span>
-                                            @endforelse
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                @empty
+                                                    <span class="text-secondary">—</span>
+                                                @endforelse
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
                 </div>
             </div>

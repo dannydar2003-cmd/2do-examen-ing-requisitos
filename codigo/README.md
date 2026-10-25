@@ -1,10 +1,10 @@
 # Clínica Vida Salud: sistema web de gestión de citas médicas
 
-Segundo examen parcial de Ingeniería de Requisitos. Aplicación en **Laravel 13** (PHP 8.3 o superior), **PostgreSQL 16**, plantillas Blade y Bootstrap 5. El informe con el análisis y el diseño está en `../documento/Informe-Final.md`.
+Segundo examen parcial de Ingeniería de Requisitos. Aplicación en **Laravel 13** (PHP 8.4.1 o superior), **PostgreSQL 16**, plantillas Blade y Bootstrap 5. El informe con el análisis y el diseño está en `../documento/Informe-Final.md`.
 
 ## Requisitos
 
-- PHP 8.3 o superior con la extensión `pdo_pgsql`
+- PHP 8.4.1 o superior con la extensión `pdo_pgsql`
 - Composer
 - Docker (para PostgreSQL)
 
@@ -26,6 +26,18 @@ php artisan serve                     # http://localhost:8000
 La base de datos escucha en el puerto **5433** (y no en el 5432 habitual) para no chocar con otro PostgreSQL del equipo. Verifique que el `.env` tenga `DB_PORT=5433`; las pruebas ya lo usan en `phpunit.xml`.
 
 `db:seed` muestra **una sola vez** la contraseña temporal del administrador, que vence a las 72 horas y se debe cambiar en el primer ingreso. El correo y el CI del administrador se cambian con `ADMIN_CORREO` y `ADMIN_CI` en `.env` antes de cargar los datos.
+
+## Datos de demostración
+
+Para probar el sistema con cada rol sin crear las cuentas a mano:
+
+```bash
+php artisan db:seed --class=DemoSeeder
+```
+
+Crea un Administrador, una Recepcionista, un Médico con su cuenta, su especialidad y sus horarios, y dos Pacientes con cuenta (uno con la ficha verificada y otro con la ficha pendiente de verificación). El comando muestra con qué correo o CI entra cada una. La contraseña de demostración es la constante `CONTRASENA` de `database/seeders/DemoSeeder.php`.
+
+Las cuentas tienen una contraseña conocida, así que el seeder **solo corre con `APP_ENV=local`** y se niega en cualquier otro entorno. No modifica datos existentes: si el CI ya existe, esa cuenta se omite, de modo que se puede ejecutar más de una vez.
 
 ## Si el Administrador olvida su contraseña
 
